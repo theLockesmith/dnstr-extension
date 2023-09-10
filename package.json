@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@nostr-dev-kit/ndk": "^1.0.0"
+  }
+}
