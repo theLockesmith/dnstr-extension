@@ -17,8 +17,31 @@ function redirectRequestHandler(details) {
     }
 
     return { cancel: false }
-}
+};
 
+function handleBeforeNavigate(details) {
+    const url = new URL(details.url);
+
+    if (url.search !== "") {
+        if (dotNostrRegex.test(url.search)) {
+            // Stop original navigation
+            browser.webNavigation.onBeforeNavigate.removeListener(handleBeforeNavigate);
+
+            // Get new URL with `http` prefix
+            const matchString = url.search.match(dotNostrRegex)[0];
+            const newUrl = `http://${matchString}`;
+            
+            // Get the active tab and update its URL
+            browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                if (tabs && tabs[0]) {
+                browser.tabs.update(tabs[0].id, { url: newUrl });
+                }
+            });
+        }
+    }
+};
+
+// Redirect .nostr traffic
 browser.webRequest.onBeforeRequest.addListener(
     redirectRequestHandler,
     {
@@ -28,19 +51,7 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
-browser.webNavigation.onBeforeNavigate.addListener((details) => {
-    const url = new URL(details.url);
-    console.log(`Testing url: ${url}: ${dotNostrRegex.test(url)}`);
-    console.log(url)
-    if (url.search !== "") {
-        if (dotNostrRegex.test(url.search)) {
-            console.log(`Preventing search by altering url`);
-
-            const matchString = url.search.match(dotNostrRegex)[0];
-            const newUrl = `http://${matchString}`;
-            browser.webNavigation.navigate({ url: newUrl });
-
-            return { redirectUrl: url }
-        }
-    }
-});
+// Any web address that is not prepended with `http` needs to be updated with it before navigation.
+browser.webNavigation.onBeforeNavigate.addListener(
+    handleBeforeNavigate
+);
