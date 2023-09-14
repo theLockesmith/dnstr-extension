@@ -6,4 +6,4 @@ This is a proof of concept for redirecting .nostr domains to npub domains.
 
 2. Build your dist files with `npx webpack --mode production`. Using `npx webpack --mode development` doesn't always work properly.
 
-3. 
+3. Keep building and fixing bugs.
