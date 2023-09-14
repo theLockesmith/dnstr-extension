@@ -1,16 +1,28 @@
 {
   "manifest_version": 2,
+  "__chrome__manifest_version": 3,
   "name": "DNSTR Domain redirector",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "A Firefox extension that resolves .nostr npub addresses.",
   "permissions": [
-    "webRequest",
-    "webRequestBlocking",
     "webNavigation",
     "storage",
     "tabs",
     "notifications",
     "declarativeNetRequest",
+    "*://*.nostr/*"
+  ],
+  "__firefox__permissions": [
+    "webRequest"
+  ],
+  "__chrome__permissions": [
+    "webNavigation",
+    "storage",
+    "tabs",
+    "notifications",
+    "declarativeNetRequest"
+  ],
+  "__chrome__host_permissions": [
     "*://*.nostr/*"
   ],
   "browser_action": {
@@ -19,16 +31,13 @@
     },
     "default_popup": "options.html"
   },
-  "icons": {
-    "48": "images/icon48.png"
-  },
-  "options_ui": {
-    "page": "options.html"
-  },
   "background": {
     "scripts": [
-      "js/background.js"
+      "dist/background.bundle.js"
     ],
     "persistent": false
+  },
+  "__chrome__background": {
+    "service_worker": "dist/background.bundle.js"
   }
 }

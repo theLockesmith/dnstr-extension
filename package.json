@@ -1,5 +1,23 @@
 {
+  "scripts": {
+    "dev:chrome": "NODE_ENV=development TARGET_BROWSER=chrome webpack --watch",
+    "dev:firefox": "NODE_ENV=development TARGET_BROWSER=firefox webpack --watch",
+    "dev:opera": "NODE_ENV=development TARGET_BROWSER=opera webpack --watch",
+    "build:chrome": "NODE_ENV=production TARGET_BROWSER=chrome webpack",
+    "build:firefox": "NODE_ENV=production TARGET_BROWSER=firefox webpack",
+    "build:opera": "NODE_ENV=production TARGET_BROWSER=opera webpack",
+    "build": "yarn build:chrome && yarn build:firefox && yarn build:opera"
+  },
   "dependencies": {
     "@nostr-dev-kit/ndk": "^1.0.0"
+  },
+  "devDependencies": {
+    "swc-loader": "^0.2.3",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "webextension-polyfill": "^0.10.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "wext-manifest-loader": "^3.0.0",
+    "wext-manifest-webpack-plugin": "^1.2.1"
   }
 }

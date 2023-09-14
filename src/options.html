@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width"> <!-- mobile-friendly -->
+        <link rel="stylesheet" type="text/css" href="options.css">
+    </head>
+    <body>
+        <!--
+        <fieldset class="input-and-buttons">
+            <legend>Dynamic declarativeNetRequest rules (persists across restarts)</legend>
+            Specify the JSON-formatted list of dynamic DNR rules (documentation: <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/declarativeNetRequest#rules">declarativeNetRequest rules</a>).
+            <textarea id="input-dynamic-rules"></textarea>
+            <button id="save-dynamic-rules">Save</button>
+            <output id="status-dynamic-rules"></output>
+        </fieldset>
+        -->
+
+        <fieldset class="input-and-buttons">
+            <legend>Your Relays</legend>
+            You'll need at least 1 relay to lookup your account.
+            <br />
+            <div id="relay-list">
+                <!-- List of relays will display here -->
+            </div>
+            <br />
+            <label for="new-relay-url">Add a relay</label><br />
+            <input type="text" id="new-relay-url" name="new-relay-url">
+            <button id="add-new-relay">Add</button>
+            <output id="status-new-relay"></output>
+        </fieldset>
+
+        <script src="dist/options.bundle.js"></script>
+    </body>
+</html>
